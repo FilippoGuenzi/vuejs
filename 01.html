@@ -1,0 +1,23 @@
+<html>
+    <head>
+        
+    </head>
+    <body>
+        <div id="app">
+            <h1>{{message}}</h1>
+            <h1>{{message2}}</h1>
+            <input v-model="message"/>
+            <pre>{{$data | json}}</pre>
+        </div>
+        <script src="https://unpkg.com/vue@2.2.6/dist/vue.js"></script>
+        <script>
+            new Vue({
+                el:"#app",
+                data:{
+                    message : "Hello Filippo",
+                    message2: "Youhou !!!"
+                }
+            });
+        </script>
+    </body>
+</html>
