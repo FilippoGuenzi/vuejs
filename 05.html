@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        Not components :
+        <button @click="count1++">Counter 1 : {{count1}}</button>
+        <button @click="count1++">Counter 2 : {{count1}}</button>
+        <br />
+
+        Components :
+        <counter subject="Likes"></counter>
+        <counter subject="Dislikes"></counter>
+
+        <pre>{{$data | json}}</pre>
+    </div>
+    <template id="counter-template">
+        <button @click="count2++">{{subject}} : {{count2}}</button>
+    </template>
+    <script src="https://unpkg.com/vue@2.2.6/dist/vue.js"></script>
+    <script>
+
+        Vue.component("counter", {
+
+            template: "#counter-template",
+
+            data: function(){
+                    return {count2: 0};
+            },
+
+            props:['subject']
+        });
+
+        new Vue({
+            el: "#app",
+            data: {
+                count1: 0
+            }
+        });
+        
+    </script>
+</body>
+</html>
