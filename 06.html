@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    {{$data | json}}
+    <plans :plans="plans"></plans>
+</div>
+
+<script type="text/x-template" id="plans-template">
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Action</th>
+        </tr>
+        <plan v-for="plan in plans" :plan="plan" :activePlan.sync="activePlan"></plan>
+    </table>
+</script>
+
+<script type="text/x-template" id="plan-template">
+    <tr>
+        <td>{{plan.name}}</td>
+        <td>${{plan.price}}/month</td>
+        <td>
+            <button type="button" @click="setActivePlan" v-if="plan.name != activePlan.name">{{actionName}}</button>
+            <span v-else>Current Plan</span>
+        </td>
+    </tr>
+</script>
+
+<script src="https://unpkg.com/vue@2.2.6/dist/vue.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            plans: [
+                {name: "Enterprise", price: 100},
+                {name: "Professional", price: 50},
+                {name: "Starter", price: 25},
+                {name: "Free", price: 0}
+            ]
+        },
+        components: {
+            plans: {
+                template: "#plans-template",
+                props: ["plans"],
+                data:function(){
+                    return {activePlan: this.plans[0]};
+                },
+                components: {
+                    plan: {
+                        template: "#plan-template",
+                        props: ["plan", "activePlan"],
+                        methods: {
+                            setActivePlan: function(){
+                                this.activePlan = this.plan;
+                            }
+                        },
+                        computed: {
+                            actionName: function(){
+                                if(this.plan.price > this.activePlan.price){
+                                    return "Upgrade";
+                                }
+                                return "Downgrade";
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>
