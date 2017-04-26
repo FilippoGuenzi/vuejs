@@ -5,13 +5,52 @@
     <title>Title</title>
 </head>
 <body>
-    <div id="app">
+<div id="app">
+    <span>{{$data | json}}</span><br />
 
-    </div>
+    <span>{{level}}</span><br />
+    <input type="text" v-model="points" /><br /><br />
 
-    <script src="https://unpkg.com/vue@2.2.6/dist/vue.js"></script>
-    <script>
-
-    </script>
+    <span>{{fullname}}</span><br />
+    <span>{{completeName}}</span><br />
+    <input type="text" v-model="first">
+    <input type="text" v-model="last">
+</div>
+<script src="https://unpkg.com/vue@2.2.6/dist/vue.js"></script>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            points: 0,
+            first: '',
+            last: '',
+            completeName:''
+        },
+        computed:{
+            level: function(){
+                if(this.points < 100){
+                    return "Beginner";
+                } else if(this.points < 200){
+                    return "Intermediate";
+                } else if(this.points < 300){
+                    return "Advanced";
+                } else {
+                    return "Professional";
+                }
+            },
+            fullname: function(){
+                return this.first + ' ' + this.last;
+            }
+        },
+        watch:{
+            first:function(first){
+                this.completeName = first+ ' ' + this.last;
+            },
+            last:function(last){
+                this.completeName = this.first+ ' ' + last;
+            }
+        }
+    });
+</script>
 </body>
 </html>
