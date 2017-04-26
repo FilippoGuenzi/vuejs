@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+    <form action="01.html" @submit.prevent="beforeSubmitting">
+        <button type="submit">Submit form</button>
+    </form>
+    <button type="submit" @click="count++">Increment Counter : {{count}}</button>
+    <pre>{{$data | json}}</pre>
+</div>
+<script src="https://unpkg.com/vue@2.2.6/dist/vue.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            count : 0
+        },
+        methods : {
+            beforeSubmitting : function(){
+                alert("Youhou");
+            }
+        }
+    });
+</script>
+</body>
+</html>
