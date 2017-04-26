@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <plans :plans="plans"></plans>
+</div>
+
+<script type="text/x-template" id="plans-template">
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Action</th>
+        </tr>
+        <plan v-for="plan in plans" :plan="plan"></plan>
+    </table>
+</script>
+
+<script type="text/x-template" id="plan-template">
+    <tr>
+        <td>{{plan.name}}</td>
+        <td>${{plan.price}}/month</td>
+        <td><button type="button">{{plan.action}}</button></td>
+    </tr>
+</script>
+
+<script src="https://unpkg.com/vue@2.2.6/dist/vue.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            plans: [
+                {name: "Enterprise", price: 100, action: "Upgrade"},
+                {name: "Professional", price: 50, action: "Upgrade"},
+                {name: "Starter", price: 25, action: "Upgrade"},
+                {name: "Free", price: 0, action: "Upgrade"}
+            ]
+        },
+        components: {
+            plans: {
+                template: "#plans-template",
+                props: ["plans"],
+                components: {
+                    plan: {
+                        template: "#plan-template",
+                        props: ["plan"]
+                    }
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>
