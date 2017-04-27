@@ -6,6 +6,7 @@
 </head>
 <body>
 <div id="app">
+    {{$data | json}}
     <plans :plans="plans"></plans>
 </div>
 
@@ -16,7 +17,7 @@
             <th>Price</th>
             <th>Action</th>
         </tr>
-        <plan v-for="plan in plans" :plan="plan"></plan>
+        <plan v-for="plan in plans" :plan="plan" :activePlan.sync="activePlan"></plan>
     </table>
 </script>
 
@@ -24,7 +25,10 @@
     <tr>
         <td>{{plan.name}}</td>
         <td>${{plan.price}}/month</td>
-        <td><button type="button">{{plan.action}}</button></td>
+        <td>
+            <button type="button" @click="setActivePlan" v-if="plan.name != activePlan.name">{{actionName}}</button>
+            <span v-else>Current Plan</span>
+        </td>
     </tr>
 </script>
 
@@ -34,20 +38,36 @@
         el: "#app",
         data: {
             plans: [
-                {name: "Enterprise", price: 100, action: "Upgrade"},
-                {name: "Professional", price: 50, action: "Upgrade"},
-                {name: "Starter", price: 25, action: "Upgrade"},
-                {name: "Free", price: 0, action: "Upgrade"}
+                {name: "Enterprise", price: 100},
+                {name: "Professional", price: 50},
+                {name: "Starter", price: 25},
+                {name: "Free", price: 0}
             ]
         },
         components: {
             plans: {
                 template: "#plans-template",
                 props: ["plans"],
+                data:function(){
+                    return {activePlan: this.plans[0]};
+                },
                 components: {
                     plan: {
                         template: "#plan-template",
-                        props: ["plan"]
+                        props: ["plan", "activePlan"],
+                        methods: {
+                            setActivePlan: function(){
+                                this.activePlan = this.plan;
+                            }
+                        },
+                        computed: {
+                            actionName: function(){
+                                if(this.plan.price > this.activePlan.price){
+                                    return "Upgrade";
+                                }
+                                return "Downgrade";
+                            }
+                        }
                     }
                 }
             }
