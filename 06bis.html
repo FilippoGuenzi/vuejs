@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    {{$data | json}}
+    <plan v-for="plan in plans" :plan="plan" :active.sync="active"></plan>
+</div>
+
+<script type="text/x-template" id="plan-template">
+        <tr>
+        <td>{{plan.name}}</td>
+        <td>${{plan.price}}/month</td>
+        <td>
+            <span v-if="isActive">Current Plan</span>
+            <button v-else type="button" @click="setActive">{{isUpgrade ? "Upgrade" : "Downgrade"}}</button>
+        </td>
+    </tr>
+</script>
+
+<script src="https://unpkg.com/vue@1.0.3/dist/vue.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+
+        data: {
+            plans: [
+                {name: "Enterprise", price: 100},
+                {name: "Professional", price: 50},
+                {name: "Starter", price: 25},
+                {name: "Free", price: 0}
+            ],
+            active: {}
+        },
+
+        components: {
+            plan: {
+                template: "#plan-template",
+
+                props: ["plan", "active"],
+
+                computed: {
+                    isActive:function(){
+                        return this.plan.name === this.active.name;
+                    },
+
+                    isUpgrade: function () {
+                        return this.active && this.plan.price > this.active.price;
+                    }
+                },
+
+                methods: {
+                    setActive: function () {
+                        this.active = this.plan;
+                    }
+                },
+            }
+        }
+    });
+</script>
+</body>
+</html>
