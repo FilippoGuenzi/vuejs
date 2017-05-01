@@ -11,7 +11,7 @@
 </div>
 
 <script type="text/x-template" id="plan-template">
-        <tr>
+    <tr>
         <td>{{plan.name}}</td>
         <td>${{plan.price}}/month</td>
         <td>
@@ -43,7 +43,7 @@
                 props: ["plan", "active"],
 
                 computed: {
-                    isActive:function(){
+                    isActive: function () {
                         return this.plan.name === this.active.name;
                     },
 
@@ -56,7 +56,7 @@
                     setActive: function () {
                         this.active = this.plan;
                     }
-                },
+                }
             }
         }
     });
