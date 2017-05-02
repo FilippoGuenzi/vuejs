@@ -1,14 +1,20 @@
 <html>
 <head>
-    <link type="text/css" href="07.css" />
+    <link rel="stylesheet" type="text/css" href="07.css" />
 </head>
 <body>
 <div id="app">
     <ul>
-        <li class="completed" v-for="task in tasks">{{task.body}}</li>
+        <li
+                :class="{ 'completed' : task.completed }"
+                v-for="task in tasks"
+                @click="task.completed = !task.completed"
+        >
+            {{task.body}}
+        </li>
     </ul>
 </div>
-<script src="https://unpkg.com/vue@1.0.8/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.4/vue.js"></script>
 <script src="07.js"></script>
 </body>
 </html>
