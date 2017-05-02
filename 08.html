@@ -1,0 +1,29 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="08.css"/>
+</head>
+<body>
+<div id="app">
+    <task-list :list="tasks"></task-list>
+    <task-list
+            :list="[
+                        {body: 'Go to the cinema', completed: true},
+                        {body: 'Go to the swimming pool', completed: false}
+            ]"
+    ></task-list>
+</div>
+<script type="text/template" id="task-list-template">
+    <ul>
+        <li
+                :class="{ 'completed' : task.completed }"
+                v-for="task in list"
+                @click="task.completed = !task.completed"
+        >
+            {{task.body}}
+        </li>
+    </ul>
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.4/vue.js"></script>
+<script src="08.js"></script>
+</body>
+</html>
