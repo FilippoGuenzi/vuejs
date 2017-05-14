@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chp 10</title>
+    <link rel="stylesheet" href="../bootstrap.css"/>
+</head>
+<body>
+<div id="app">
+    <tasks :list="tasks"></tasks>
+</div>
+
+
+
+<script type="text/template" id="tasks-template">
+    <div>
+        <h1>My tasks</h1>
+        <ul class="list-group">
+            <li v-for="task in list" class="list-group-item">{{task.content}}</li>
+        </ul>
+    </div>
+</script>
+
+<script src="../vue.js"></script>
+<script src="../vue-resource.js"></script>
+<script src="../jquery.js"></script>
+<script src="10.js"></script>
+</body>
+</html>
