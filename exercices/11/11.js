@@ -7,17 +7,17 @@ Vue.component('tasks', {
         };
     }
     ,
-    created: function(){
+    created: function () {
         this.fetchTasks();
     }
     ,
     methods: {
-        fetchTasks : function(){
-            this.$http.get('http://localhost:8080/tasks-server/task', function(data){
+        fetchTasks: function () {
+            this.$http.get('http://localhost:8080/tasks-server/task', function (data) {
                 this.list = data;
             }.bind(this));
         },
-        deleteTask : function(task){
+        deleteTask: function (task) {
             this.list.$remove(task);
         }
     }

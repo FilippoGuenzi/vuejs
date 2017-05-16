@@ -2,20 +2,22 @@ Vue.component('tasks', {
     template: '#tasks-template'
     ,
     data: function () {
-        return {list: []};
+        return {
+            list: []
+        };
     }
     ,
-    created: function(){
+    created: function () {
         this.fetchTasks();
     }
     ,
     methods: {
-        fetchTasks : function(){
-            $.getJSON('http://localhost:8080/tasks-server/task/', function(data){
+        fetchTasks: function () {
+            $.getJSON('http://localhost:8080/tasks-server/task/', function (data) {
                 this.list = data;
             }.bind(this));
         },
-        deleteTask : function(task){
+        deleteTask: function (task) {
             this.list.$remove(task);
         }
     }
